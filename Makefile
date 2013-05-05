@@ -1,4 +1,3 @@
-
 install: install-bash install-tmux install-vim install-git
 
 install-bash:
@@ -16,5 +15,5 @@ install-vim:
 	ln -s `pwd`/vimrc ~/.vimrc
 
 install-git:
-	@rm -f ~/.gitignore
-	ln -s `pwd`/gitignore ~/.gitignore
+	@rm -f ~/.gitconfig
+	ln -s `pwd`/gitconfig ~/.gitconfig
