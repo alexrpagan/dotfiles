@@ -20,3 +20,7 @@ export PATH=/home/apagan/install/bin:$PATH
 export EDITOR=vim
 
 source ~/.bash_aliases
+
+export NVM_DIR="/Users/apagan/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
