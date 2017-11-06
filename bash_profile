@@ -20,7 +20,7 @@ export PATH=/usr/local/opt/postgresql@9.4/bin:$PATH
 export EDITOR=vim
 
 source ~/.bash_aliases
-[ -s "./work_profile" ] && . ".work_profile"
+[ -s ~/.work_profile ] && source ~/.work_profile
 
 export NVM_DIR="/Users/apagan/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
