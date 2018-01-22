@@ -8,10 +8,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
         . $(brew --prefix)/etc/bash_completion
     fi
 
-    if [ -f ~/.maven_bash_completion.bash ]; then
-        . ~/.maven_bash_completion.bash
-    fi
-
     export PS1='\[\033[01;32m\]\u\[\033[01;34m\] \w\[\033[01;33m\]$(__git_ps1)\[\033[01;34m\] \$\[\033[00m\] '
 fi
 
@@ -24,6 +20,28 @@ source ~/.bash_aliases
 
 export NVM_DIR="/Users/apagan/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+ancient_history() {
+    month=`date +%Y-%m`
+    archive_dir=/Users/apagan/ancient-history/$month
+    mkdir -p /Users/apagan/ancient-history/$month
+    echo "Moving ${1} to $archive_dir"
+    mv "${1}" $archive_dir
+}
+
+clean_desktop() {
+    for file in ~/Desktop/*; do
+        [ -e "$file" ] || continue
+        ancient_history "$file"
+    done
+}
+
+clean_downloads() {
+     for file in ~/Downloads/*; do
+        [ -e "$file" ] || continue
+        ancient_history "$file"
+    done
+}
 
 # Eternal bash history.
 # ---------------------
