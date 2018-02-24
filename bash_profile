@@ -8,7 +8,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
         . $(brew --prefix)/etc/bash_completion
     fi
 
-    export PS1='\[\033[01;32m\]\u\[\033[01;34m\] \w\[\033[01;33m\]$(__git_ps1)\[\033[01;34m\] \$\[\033[00m\] '
+    if [ !!$(command -v __git_ps1) ]; then
+        export PS1='\[\033[01;32m\]\u\[\033[01;34m\] \w\[\033[01;33m\]$(__git_ps1)\[\033[01;34m\] \$\[\033[00m\] '
+    fi
 fi
 
 export PATH=/usr/local/opt/postgresql@9.4/bin:$PATH
@@ -21,7 +23,7 @@ source ~/.bash_aliases
 export NVM_DIR="/Users/apagan/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-ancient_history() {
+ancient-history() {
     month=`date +%Y-%m`
     archive_dir=/Users/apagan/ancient-history/$month
     mkdir -p /Users/apagan/ancient-history/$month
@@ -29,18 +31,34 @@ ancient_history() {
     mv "${1}" $archive_dir
 }
 
-clean_desktop() {
+clean-desktop() {
     for file in ~/Desktop/*; do
         [ -e "$file" ] || continue
-        ancient_history "$file"
+        ancient-history "$file"
     done
 }
 
-clean_downloads() {
+clean-downloads() {
      for file in ~/Downloads/*; do
         [ -e "$file" ] || continue
-        ancient_history "$file"
+        ancient-history "$file"
     done
+}
+
+g ()
+{
+    path=$PWD;
+    while [ ! -f "${path}/gradlew" ]; do
+        if [ "$path" == "/" ]; then
+            echo "Couldn't find gradlew - hit / so giving up";
+            return 1;
+        else
+            path=$(dirname $path);
+        fi;
+    done;
+    if [ -f "${path}/gradlew" ]; then
+        "${path}/gradlew" "$@";
+    fi
 }
 
 # Eternal bash history.
